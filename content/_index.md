@@ -6,4 +6,4 @@ weight: 1
 
 A small website where I will add my things, little by little. Stay tuned!
 
-visitor count: currently down, no clue if I will add a new one
+visitor count: ccurrently down, something else might be here instead
