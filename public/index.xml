@@ -2,18 +2,18 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>lechuza café</title>
-    <link>https://lechuza.cafe/</link>
+    <link>http://localhost:1313/</link>
     <description>Recent content on lechuza café</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>made with ♥ - 2025</copyright>
     <lastBuildDate>Thu, 25 Dec 2025 00:00:00 +0000</lastBuildDate>
-    <atom:link href="https://lechuza.cafe/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>~/about</title>
-      <link>https://lechuza.cafe/about/</link>
+      <link>http://localhost:1313/about/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://lechuza.cafe/about/</guid>
+      <guid>http://localhost:1313/about/</guid>
       <description>&lt;h2 id=&#34;about&#34;&gt;About&lt;/h2&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;will be filled&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;hr&gt;&#xA;&lt;h2 id=&#34;education&#34;&gt;Education&lt;/h2&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;stuff&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;hr&gt;&#xA;&lt;h2 id=&#34;certifications&#34;&gt;Certifications&lt;/h2&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;AWS Cloud Practitioner&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;hr&gt;&#xA;&lt;h2 id=&#34;skills&#34;&gt;Skills&lt;/h2&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;stuff&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;hr&gt;&#xA;&lt;h2 id=&#34;experience&#34;&gt;Experience&lt;/h2&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;stuff&lt;/li&gt;&#xA;&lt;/ul&gt;</description>
       <content:encoded><![CDATA[<h2 id="about">About</h2>
 <ul>
@@ -43,9 +43,9 @@
     </item>
     <item>
       <title>Optimizing my workflow</title>
-      <link>https://lechuza.cafe/blog/workflow/</link>
+      <link>http://localhost:1313/blog/workflow/</link>
       <pubDate>Thu, 25 Dec 2025 00:00:00 +0000</pubDate>
-      <guid>https://lechuza.cafe/blog/workflow/</guid>
+      <guid>http://localhost:1313/blog/workflow/</guid>
       <description>&lt;p&gt;I kind of forgot today was Christmas because I spent a big chunk of my time today trying to organize my workflow on Visual Studio Code. I noticed that I didn&amp;rsquo;t really feel that motivated to work on my servers, or write to my blog&amp;hellip; because it&amp;rsquo;s a massive pain to manually update things the &amp;ldquo;old-fashioned&amp;rdquo; way. I would work on the .md files for Hugo on my desktop computer, and manually upload it to my S3 bucket when I was done, which lead me to uploading files and folders that probably shouldn&amp;rsquo;t of been seen. Oops.&lt;/p&gt;</description>
       <content:encoded><![CDATA[<p>I kind of forgot today was Christmas because I spent a big chunk of my time today trying to organize my workflow on Visual Studio Code. I noticed that I didn&rsquo;t really feel that motivated to work on my servers, or write to my blog&hellip; because it&rsquo;s a massive pain to manually update things the &ldquo;old-fashioned&rdquo; way. I would work on the .md files for Hugo on my desktop computer, and manually upload it to my S3 bucket when I was done, which lead me to uploading files and folders that probably shouldn&rsquo;t of been seen. Oops.</p>
 <p>I did write a small, basic Makefile that ran some basic AWS CLI commands when executed, but I had to manually open up the terminal and it was pretty annoying. So I took some time to fix my setup a bit. Here&rsquo;s what my makefile looks like, if you&rsquo;re curious.</p>
@@ -136,9 +136,9 @@ Additionally&hellip; I don&rsquo;t really want to work with AWS anymore for my s
     </item>
     <item>
       <title>I tried the Cloud Resume Challenge.</title>
-      <link>https://lechuza.cafe/blog/cloudresume/</link>
+      <link>http://localhost:1313/blog/cloudresume/</link>
       <pubDate>Mon, 11 Aug 2025 00:00:00 +0000</pubDate>
-      <guid>https://lechuza.cafe/blog/cloudresume/</guid>
+      <guid>http://localhost:1313/blog/cloudresume/</guid>
       <description>&lt;h2 id=&#34;spoiler-alert-i-did-not-finish-it-yet&#34;&gt;spoiler alert: I did not finish it&amp;hellip; (yet)&lt;/h2&gt;&#xA;&lt;p&gt;There&amp;rsquo;s a challenge going around called the Cloud Resume Challenge that you can find &lt;a href=&#34;https://cloudresumechallenge.dev/&#34;&gt;here&lt;/a&gt;, so I took a crack at it.&lt;/p&gt;&#xA;&lt;h2 id=&#34;chunk-0---the-cloud-certificate&#34;&gt;chunk 0 - the cloud certificate&lt;/h2&gt;&#xA;&lt;p&gt;It took me a month to practice for my AWS CCP exam, mostly using the time I had during my internship. I also was able to work hands-on a bit with AWS, which helped. I passed with an 837 so I must&amp;rsquo;ve known &lt;em&gt;something&lt;/em&gt;&amp;hellip; lol. I mostly struggled with the billing questions and the support team ones, because they all blended together for me.&lt;/p&gt;</description>
       <content:encoded><![CDATA[<h2 id="spoiler-alert-i-did-not-finish-it-yet">spoiler alert: I did not finish it&hellip; (yet)</h2>
 <p>There&rsquo;s a challenge going around called the Cloud Resume Challenge that you can find <a href="https://cloudresumechallenge.dev/">here</a>, so I took a crack at it.</p>
@@ -163,9 +163,9 @@ Additionally&hellip; I don&rsquo;t really want to work with AWS anymore for my s
     </item>
     <item>
       <title>a new home for the owl cove</title>
-      <link>https://lechuza.cafe/blog/revamp/</link>
+      <link>http://localhost:1313/blog/revamp/</link>
       <pubDate>Sun, 10 Aug 2025 00:00:00 +0000</pubDate>
-      <guid>https://lechuza.cafe/blog/revamp/</guid>
+      <guid>http://localhost:1313/blog/revamp/</guid>
       <description>&lt;h2 id=&#34;whats-new&#34;&gt;What&amp;rsquo;s new?&lt;/h2&gt;&#xA;&lt;p&gt;I rebuilt my website using Hugo (again) to make it easier to maintain. To make a long story short, I switched my entire &lt;em&gt;infrastructure&lt;/em&gt; from a VPS running Debian, to a static AWS S3 website. That also means I no longer provide public services, but fret not! I&amp;rsquo;ll add interesting things to this little website soon.&lt;/p&gt;</description>
       <content:encoded><![CDATA[<h2 id="whats-new">What&rsquo;s new?</h2>
 <p>I rebuilt my website using Hugo (again) to make it easier to maintain. To make a long story short, I switched my entire <em>infrastructure</em> from a VPS running Debian, to a static AWS S3 website. That also means I no longer provide public services, but fret not! I&rsquo;ll add interesting things to this little website soon.</p>
