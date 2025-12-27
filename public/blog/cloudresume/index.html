@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta http-equiv="X-Clacks-Overhead" content="GNU Terry Pratchett" />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="shortcut icon" href="https://lechuza.cafe/images/favicon.png" />
+<title>I tried the Cloud Resume Challenge. | lechuza café</title><meta name="referrer" content="no-referrer-when-downgrade" />
+
+  
+  <link href="/original.min.css" rel="stylesheet">
+
+  
+
+  
+
+  
+<meta name="robots" content="noindex, nofollow" />
+</head>
+
+<body>
+  <header><a class="skip-link" href="#main-content">Skip to main content</a>
+
+<a href="/" class="title"><h1>lechuza café</h1></a>
+<nav>
+  <a href="/">~/home</a>
+
+  <a href="/blog/">~/blog</a>
+
+  <a href="/about/">~/about</a>
+
+<a href='https://github.com/lechuzacafe'>~/github</a>
+
+
+
+
+
+
+
+</nav>
+</header>
+  <main id="main-content">
+
+<h1>I tried the Cloud Resume Challenge.</h1>
+<p class="byline">
+  <time datetime='2025-08-11' pubdate>
+    2025-08-11
+  </time>
+  · Amanda Parada
+</p>
+
+<content>
+  <h2 id="spoiler-alert-i-did-not-finish-it-yet">spoiler alert: I did not finish it&hellip; (yet)</h2>
+<p>There&rsquo;s a challenge going around called the Cloud Resume Challenge that you can find <a href="https://cloudresumechallenge.dev/">here</a>, so I took a crack at it.</p>
+<h2 id="chunk-0---the-cloud-certificate">chunk 0 - the cloud certificate</h2>
+<p>It took me a month to practice for my AWS CCP exam, mostly using the time I had during my internship. I also was able to work hands-on a bit with AWS, which helped. I passed with an 837 so I must&rsquo;ve known <em>something</em>&hellip; lol. I mostly struggled with the billing questions and the support team ones, because they all blended together for me.</p>
+<p>I&rsquo;m not going to stop at there, though, I want to get another AWS certificate before I graduate. I need to put that 50% voucher to good use!</p>
+<h2 id="chunk-1---html--css-setting-up-cloudfront">chunk 1 - HTML + CSS, setting up CloudFront</h2>
+<p>Usually, I&rsquo;m pretty lazy with my HTML and just copy and paste the same page over and over, but to make my life easier, I decided to use a static site generator. On my original old site, I used to use 11ty, but it was pretty easy to get disorganized, so I tried using Pelican, but it didn&rsquo;t really click with me. I settled with Hugo, and I&rsquo;m satisfied with it so far.</p>
+<p>I didn&rsquo;t have to set up the domain name since I already bought mine through another registrar, and I did raise an eyebrow on the idea of using CloudFront, but I was open to it. Actually, the S3 static site was something new to me. Usually, I would just rent a VPS, spin up a basic instance of nginx, and automatically renew my SSL certificate via certbot, but to keep true to the challenge, I tried to keep things within AWS (except for my domain, because I already had paid for it). CloudFront wasn&rsquo;t really that hard to set up, so I&rsquo;m happy with how my website turned out.</p>
+<p>Only complaint I have with CloudFront is that the caching means it takes forever for my website to reflect its changes. I&rsquo;ve tried several things to speed it up, but nothing. I&rsquo;ll figure it out later, it&rsquo;s not like I plan to update my website that much.</p>
+<p>The only modification I did was to enable DNSSEC for my domain, which was&hellip; a click of a button, lol.</p>
+<h2 id="chunk-2-and-3---lambda-function-and-api-gateway">chunk 2 and 3 - lambda function and API gateway</h2>
+<p>The API implementation and getting the permissions for Lambda to access my DynamoDB database was pretty easy. But I noticed I was forgetting a lot when it came to the Python coding&hellip;. coding isn&rsquo;t really my strong suit as I mostly work with hosting and managing Linux servers.  With Javascript, I kinda just plucked it into my index.md file through Hugo and hoped for the best. (at least it works, even if it looks a bit ugly underneath the surface)</p>
+<p>I wanted to implement a unique visitor counter, but that involved storing cookies and IP addresses which seemed a bit out of scope consdering how new I am to this stuff. It&rsquo;s also susceptible to being inaccurate if many bots visit my website at the same time, so I tried to implement a rate-limit to the API (which I&rsquo;m not sure if it works, but I tried). Eh. I don&rsquo;t feel like paying for a WAF right now, so I&rsquo;ll leave it be. If my website was running on a VPS, I could implement Anubis to prevent bots from scraping my site.</p>
+<h2 id="chunk-4---automation-and-technically-where-i-gave-up">chunk 4 - automation, and technically where I gave up</h2>
+<p>yeah I was clueless on this section. Terraform seemed pretty daunting, so I kinda left it here.</p>
+<p>I mean, I kinda do some automation already, with my makefile&hellip; but nothing crazy. I just use the makefile to automatically have Hugo build my site from the terminal, and sync to my S3 bucket. I used to manually transfer my files with FTP which&hellip; I wouldn&rsquo;t recommend.</p>
+<h2 id="technically-chunk-5---what-now">(technically) chunk 5 - what now?</h2>
+<p>I don&rsquo;t think that the CRC works for me, personally. It may work for someone with prior experience, which I don&rsquo;t really have, lol, but for me&hellip; I felt pretty overwhelmed. I might give Learn to Cloud a spin and see if I can build up the fundamentals from there (it also teaches you Terraform and Python in more detail), and then try chunk 4 of the CRC.</p>
+<p>But hey, at least I learned <em>something</em> from this, so it wasn&rsquo;t a complete waste of my time.</p>
+
+</content>
+<p>
+  
+</p>
+
+
+
+
+  </main>
+  <footer><small>
+<br>
+  made with ♥ - 2025  
+</small></footer>
+
+    
+</body>
+
+</html>

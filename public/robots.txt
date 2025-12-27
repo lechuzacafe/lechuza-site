@@ -1,0 +1,18 @@
+User-agent: *
+
+Disallow: /
+
+Disallow: /blog/
+
+Disallow: /about/
+
+Disallow: /blog/workflow/
+
+Disallow: /blog/cloudresume/
+
+Disallow: /blog/revamp/
+
+Disallow: /categories/
+
+Disallow: /tags/
+

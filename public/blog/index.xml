@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>~/blog on lechuza café</title>
+    <link>https://lechuza.cafe/blog/</link>
+    <description>Recent content in ~/blog on lechuza café</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <copyright>made with ♥ - 2025</copyright>
+    <lastBuildDate>Thu, 25 Dec 2025 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://lechuza.cafe/blog/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Optimizing my workflow</title>
+      <link>https://lechuza.cafe/blog/workflow/</link>
+      <pubDate>Thu, 25 Dec 2025 00:00:00 +0000</pubDate>
+      <guid>https://lechuza.cafe/blog/workflow/</guid>
+      <description>&lt;p&gt;I kind of forgot today was Christmas because I spent a big chunk of my time today trying to organize my workflow on Visual Studio Code. I noticed that I didn&amp;rsquo;t really feel that motivated to work on my servers, or write to my blog&amp;hellip; because it&amp;rsquo;s a massive pain to manually update things the &amp;ldquo;old-fashioned&amp;rdquo; way. I would work on the .md files for Hugo on my desktop computer, and manually upload it to my S3 bucket when I was done, which lead me to uploading files and folders that probably shouldn&amp;rsquo;t of been seen. Oops.&lt;/p&gt;</description>
+      <content:encoded><![CDATA[<p>I kind of forgot today was Christmas because I spent a big chunk of my time today trying to organize my workflow on Visual Studio Code. I noticed that I didn&rsquo;t really feel that motivated to work on my servers, or write to my blog&hellip; because it&rsquo;s a massive pain to manually update things the &ldquo;old-fashioned&rdquo; way. I would work on the .md files for Hugo on my desktop computer, and manually upload it to my S3 bucket when I was done, which lead me to uploading files and folders that probably shouldn&rsquo;t of been seen. Oops.</p>
+<p>I did write a small, basic Makefile that ran some basic AWS CLI commands when executed, but I had to manually open up the terminal and it was pretty annoying. So I took some time to fix my setup a bit. Here&rsquo;s what my makefile looks like, if you&rsquo;re curious.</p>
+
+
+
+
+
+<pre tabindex="0"><code>BUCKET_NAME = mycoolbucket
+
+build:
+	hugo
+
+deploy: build
+	aws --profile hugo-deploy s3 sync public/ s3://$(BUCKET_NAME) --delete
+	aws --profile hugo-deploy s3 website s3://$(BUCKET_NAME) --index-document index.html --error-document 404.html</code></pre><p>I added a separate hugo-deploy profile that carried my AWS credentials to keep things a bit cleaner.</p>
+<h2 id="what-i-did-for-my-portfolio-site">What I did for my portfolio site</h2>
+<p>I didn&rsquo;t really make changes to that makefile, but I did experiment with a VSCode extension called Run on Save. It took me a while to find a good way to run it&hellip; ultimately, I just ended up writing what I needed to my workspace file (which loads up all of the websites I am working on for me).</p>
+
+
+
+
+
+<pre tabindex="0"><code>{
+  &#34;folders&#34;: [
+    {
+      &#34;path&#34;: &#34;.&#34;
+    }
+  ],
+  &#34;settings&#34;: {
+    &#34;runOnSave.commands&#34;: [
+      {
+        &#34;match&#34;: &#34;lechuza.cafe/.*&#34;,
+        &#34;command&#34;: &#34;cd lechuza.cafe &amp;&amp; make deploy&#34;,
+        &#34;runIn&#34;: &#34;backend&#34;
+      }
+    ]
+  }
+}</code></pre><p>So, whenever I hit Ctrl+S, my Hugo site is automatically built and deployed to my S3 bucket&hellip; yay.</p>
+<h2 id="other-things-of-note">Other things of note</h2>
+<p>Most of my effort today was focused on my more &ldquo;fun&rdquo;, personal website though. I&rsquo;m currently running another website on a DigitalOcean droplet running Nginx, and I used to use rsync&hellip; after I edited and saved my files with nano. More efficient than manually ftping the files back and forth (egh), but still kind of annoying. Thankfully, there&rsquo;s an sftp extension for VSCode as well, where it automatically syncs my files to my droplet when I save in VSCode. It&rsquo;s really snappy and efficient. Here&rsquo;s my sftp.json file.</p>
+
+
+
+
+
+<pre tabindex="0"><code>[
+  {
+  &#34;name&#34;: &#34;HTTP&#34;,
+  &#34;context&#34;: &#34;myfunsite/http&#34;,
+  &#34;host&#34;: &#34;myserverip&#34;,
+  &#34;protocol&#34;: &#34;sftp&#34;,
+  &#34;port&#34;: nonstandardport,
+  &#34;username&#34;: &#34;mycooluser&#34;,
+  &#34;remotePath&#34;: &#34;/var/www/myfunsite.com/&#34;,  
+  &#34;uploadOnSave&#34;: true, 
+  &#34;watcher&#34;: {
+    &#34;files&#34;: &#34;**/*&#34;,  
+    &#34;autoUpload&#34;: true,
+    &#34;autoDelete&#34;: true  
+  },
+  &#34;ignore&#34;: [&#34;.git&#34;, &#34;.vscode&#34;], 
+  &#34;privateKeyPath&#34;: &#34;/home/mycoolfiles/.ssh/httpprivatekey&#34;
+},
+  {
+  &#34;name&#34;: &#34;Gemini&#34;,
+  &#34;context&#34;: &#34;myfunsite/gemini&#34;,
+  &#34;host&#34;: &#34;myserverip&#34;,
+  &#34;protocol&#34;: &#34;sftp&#34;,
+  &#34;port&#34;: nonstandardport,
+  &#34;username&#34;: &#34;mygeminiuser&#34;,
+  &#34;remotePath&#34;: &#34;/home/mygeminiuser/gemini/content/&#34;,  
+  &#34;uploadOnSave&#34;: true,
+  &#34;watcher&#34;: {
+    &#34;files&#34;: &#34;**/*&#34;,
+    &#34;autoUpload&#34;: true,
+    &#34;autoDelete&#34;: true 
+  },
+  &#34;ignore&#34;: [&#34;.git&#34;, &#34;.vscode&#34;],
+  &#34;privateKeyPath&#34;: &#34;/home/mycoolfiles/.ssh/geminiprivatekey&#34;
+}
+]</code></pre><p>What makes this really cool to me, is that I can configure sftp to seamlessly sync for two different directories. I have two separate directories for the HTTP side of my &ldquo;fun&rdquo; website, and the Gemini protocol side.</p>
+<p>I also installed an extension called Live Server that boots up my web browser to share a live local server version of my pages, so I can edit on the fly&hellip; although sftp is fast enough that I can probably keep my site in another window.</p>
+<h2 id="what-do-i-want-to-do-next">What do I want to do next?</h2>
+<p>I want to save a basic markdown snippet in VSCode, so every time I go to write a new blog post, I don&rsquo;t have to copy and paste from my old ones.
+Additionally&hellip; I don&rsquo;t really want to work with AWS anymore for my static site, so I might change hosts relatively soon. Github Pages catches my eye, but I haven&rsquo;t decided where to move my site to as of this moment.</p>
+]]></content:encoded>
+    </item>
+    <item>
+      <title>I tried the Cloud Resume Challenge.</title>
+      <link>https://lechuza.cafe/blog/cloudresume/</link>
+      <pubDate>Mon, 11 Aug 2025 00:00:00 +0000</pubDate>
+      <guid>https://lechuza.cafe/blog/cloudresume/</guid>
+      <description>&lt;h2 id=&#34;spoiler-alert-i-did-not-finish-it-yet&#34;&gt;spoiler alert: I did not finish it&amp;hellip; (yet)&lt;/h2&gt;&#xA;&lt;p&gt;There&amp;rsquo;s a challenge going around called the Cloud Resume Challenge that you can find &lt;a href=&#34;https://cloudresumechallenge.dev/&#34;&gt;here&lt;/a&gt;, so I took a crack at it.&lt;/p&gt;&#xA;&lt;h2 id=&#34;chunk-0---the-cloud-certificate&#34;&gt;chunk 0 - the cloud certificate&lt;/h2&gt;&#xA;&lt;p&gt;It took me a month to practice for my AWS CCP exam, mostly using the time I had during my internship. I also was able to work hands-on a bit with AWS, which helped. I passed with an 837 so I must&amp;rsquo;ve known &lt;em&gt;something&lt;/em&gt;&amp;hellip; lol. I mostly struggled with the billing questions and the support team ones, because they all blended together for me.&lt;/p&gt;</description>
+      <content:encoded><![CDATA[<h2 id="spoiler-alert-i-did-not-finish-it-yet">spoiler alert: I did not finish it&hellip; (yet)</h2>
+<p>There&rsquo;s a challenge going around called the Cloud Resume Challenge that you can find <a href="https://cloudresumechallenge.dev/">here</a>, so I took a crack at it.</p>
+<h2 id="chunk-0---the-cloud-certificate">chunk 0 - the cloud certificate</h2>
+<p>It took me a month to practice for my AWS CCP exam, mostly using the time I had during my internship. I also was able to work hands-on a bit with AWS, which helped. I passed with an 837 so I must&rsquo;ve known <em>something</em>&hellip; lol. I mostly struggled with the billing questions and the support team ones, because they all blended together for me.</p>
+<p>I&rsquo;m not going to stop at there, though, I want to get another AWS certificate before I graduate. I need to put that 50% voucher to good use!</p>
+<h2 id="chunk-1---html--css-setting-up-cloudfront">chunk 1 - HTML + CSS, setting up CloudFront</h2>
+<p>Usually, I&rsquo;m pretty lazy with my HTML and just copy and paste the same page over and over, but to make my life easier, I decided to use a static site generator. On my original old site, I used to use 11ty, but it was pretty easy to get disorganized, so I tried using Pelican, but it didn&rsquo;t really click with me. I settled with Hugo, and I&rsquo;m satisfied with it so far.</p>
+<p>I didn&rsquo;t have to set up the domain name since I already bought mine through another registrar, and I did raise an eyebrow on the idea of using CloudFront, but I was open to it. Actually, the S3 static site was something new to me. Usually, I would just rent a VPS, spin up a basic instance of nginx, and automatically renew my SSL certificate via certbot, but to keep true to the challenge, I tried to keep things within AWS (except for my domain, because I already had paid for it). CloudFront wasn&rsquo;t really that hard to set up, so I&rsquo;m happy with how my website turned out.</p>
+<p>Only complaint I have with CloudFront is that the caching means it takes forever for my website to reflect its changes. I&rsquo;ve tried several things to speed it up, but nothing. I&rsquo;ll figure it out later, it&rsquo;s not like I plan to update my website that much.</p>
+<p>The only modification I did was to enable DNSSEC for my domain, which was&hellip; a click of a button, lol.</p>
+<h2 id="chunk-2-and-3---lambda-function-and-api-gateway">chunk 2 and 3 - lambda function and API gateway</h2>
+<p>The API implementation and getting the permissions for Lambda to access my DynamoDB database was pretty easy. But I noticed I was forgetting a lot when it came to the Python coding&hellip;. coding isn&rsquo;t really my strong suit as I mostly work with hosting and managing Linux servers.  With Javascript, I kinda just plucked it into my index.md file through Hugo and hoped for the best. (at least it works, even if it looks a bit ugly underneath the surface)</p>
+<p>I wanted to implement a unique visitor counter, but that involved storing cookies and IP addresses which seemed a bit out of scope consdering how new I am to this stuff. It&rsquo;s also susceptible to being inaccurate if many bots visit my website at the same time, so I tried to implement a rate-limit to the API (which I&rsquo;m not sure if it works, but I tried). Eh. I don&rsquo;t feel like paying for a WAF right now, so I&rsquo;ll leave it be. If my website was running on a VPS, I could implement Anubis to prevent bots from scraping my site.</p>
+<h2 id="chunk-4---automation-and-technically-where-i-gave-up">chunk 4 - automation, and technically where I gave up</h2>
+<p>yeah I was clueless on this section. Terraform seemed pretty daunting, so I kinda left it here.</p>
+<p>I mean, I kinda do some automation already, with my makefile&hellip; but nothing crazy. I just use the makefile to automatically have Hugo build my site from the terminal, and sync to my S3 bucket. I used to manually transfer my files with FTP which&hellip; I wouldn&rsquo;t recommend.</p>
+<h2 id="technically-chunk-5---what-now">(technically) chunk 5 - what now?</h2>
+<p>I don&rsquo;t think that the CRC works for me, personally. It may work for someone with prior experience, which I don&rsquo;t really have, lol, but for me&hellip; I felt pretty overwhelmed. I might give Learn to Cloud a spin and see if I can build up the fundamentals from there (it also teaches you Terraform and Python in more detail), and then try chunk 4 of the CRC.</p>
+<p>But hey, at least I learned <em>something</em> from this, so it wasn&rsquo;t a complete waste of my time.</p>
+]]></content:encoded>
+    </item>
+    <item>
+      <title>a new home for the owl cove</title>
+      <link>https://lechuza.cafe/blog/revamp/</link>
+      <pubDate>Sun, 10 Aug 2025 00:00:00 +0000</pubDate>
+      <guid>https://lechuza.cafe/blog/revamp/</guid>
+      <description>&lt;h2 id=&#34;whats-new&#34;&gt;What&amp;rsquo;s new?&lt;/h2&gt;&#xA;&lt;p&gt;I rebuilt my website using Hugo (again) to make it easier to maintain. To make a long story short, I switched my entire &lt;em&gt;infrastructure&lt;/em&gt; from a VPS running Debian, to a static AWS S3 website. That also means I no longer provide public services, but fret not! I&amp;rsquo;ll add interesting things to this little website soon.&lt;/p&gt;</description>
+      <content:encoded><![CDATA[<h2 id="whats-new">What&rsquo;s new?</h2>
+<p>I rebuilt my website using Hugo (again) to make it easier to maintain. To make a long story short, I switched my entire <em>infrastructure</em> from a VPS running Debian, to a static AWS S3 website. That also means I no longer provide public services, but fret not! I&rsquo;ll add interesting things to this little website soon.</p>
+]]></content:encoded>
+    </item>
+  </channel>
+</rss>

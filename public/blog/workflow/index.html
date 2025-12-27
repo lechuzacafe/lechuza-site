@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta http-equiv="X-Clacks-Overhead" content="GNU Terry Pratchett" />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="shortcut icon" href="https://lechuza.cafe/images/favicon.png" />
+<title>Optimizing my workflow | lechuza café</title><meta name="referrer" content="no-referrer-when-downgrade" />
+
+  
+  <link href="/original.min.css" rel="stylesheet">
+
+  
+
+  
+
+  
+<meta name="robots" content="noindex, nofollow" />
+</head>
+
+<body>
+  <header><a class="skip-link" href="#main-content">Skip to main content</a>
+
+<a href="/" class="title"><h1>lechuza café</h1></a>
+<nav>
+  <a href="/">~/home</a>
+
+  <a href="/blog/">~/blog</a>
+
+  <a href="/about/">~/about</a>
+
+<a href='https://github.com/lechuzacafe'>~/github</a>
+
+
+
+
+
+
+
+</nav>
+</header>
+  <main id="main-content">
+
+<h1>Optimizing my workflow</h1>
+<p class="byline">
+  <time datetime='2025-12-25' pubdate>
+    2025-12-25
+  </time>
+  · Amanda Parada
+</p>
+
+<content>
+  <p>I kind of forgot today was Christmas because I spent a big chunk of my time today trying to organize my workflow on Visual Studio Code. I noticed that I didn&rsquo;t really feel that motivated to work on my servers, or write to my blog&hellip; because it&rsquo;s a massive pain to manually update things the &ldquo;old-fashioned&rdquo; way. I would work on the .md files for Hugo on my desktop computer, and manually upload it to my S3 bucket when I was done, which lead me to uploading files and folders that probably shouldn&rsquo;t of been seen. Oops.</p>
+<p>I did write a small, basic Makefile that ran some basic AWS CLI commands when executed, but I had to manually open up the terminal and it was pretty annoying. So I took some time to fix my setup a bit. Here&rsquo;s what my makefile looks like, if you&rsquo;re curious.</p>
+
+
+
+
+
+<pre tabindex="0"><code>BUCKET_NAME = mycoolbucket
+
+build:
+	hugo
+
+deploy: build
+	aws --profile hugo-deploy s3 sync public/ s3://$(BUCKET_NAME) --delete
+	aws --profile hugo-deploy s3 website s3://$(BUCKET_NAME) --index-document index.html --error-document 404.html</code></pre><p>I added a separate hugo-deploy profile that carried my AWS credentials to keep things a bit cleaner.</p>
+<h2 id="what-i-did-for-my-portfolio-site">What I did for my portfolio site</h2>
+<p>I didn&rsquo;t really make changes to that makefile, but I did experiment with a VSCode extension called Run on Save. It took me a while to find a good way to run it&hellip; ultimately, I just ended up writing what I needed to my workspace file (which loads up all of the websites I am working on for me).</p>
+
+
+
+
+
+<pre tabindex="0"><code>{
+  &#34;folders&#34;: [
+    {
+      &#34;path&#34;: &#34;.&#34;
+    }
+  ],
+  &#34;settings&#34;: {
+    &#34;runOnSave.commands&#34;: [
+      {
+        &#34;match&#34;: &#34;lechuza.cafe/.*&#34;,
+        &#34;command&#34;: &#34;cd lechuza.cafe &amp;&amp; make deploy&#34;,
+        &#34;runIn&#34;: &#34;backend&#34;
+      }
+    ]
+  }
+}</code></pre><p>So, whenever I hit Ctrl+S, my Hugo site is automatically built and deployed to my S3 bucket&hellip; yay.</p>
+<h2 id="other-things-of-note">Other things of note</h2>
+<p>Most of my effort today was focused on my more &ldquo;fun&rdquo;, personal website though. I&rsquo;m currently running another website on a DigitalOcean droplet running Nginx, and I used to use rsync&hellip; after I edited and saved my files with nano. More efficient than manually ftping the files back and forth (egh), but still kind of annoying. Thankfully, there&rsquo;s an sftp extension for VSCode as well, where it automatically syncs my files to my droplet when I save in VSCode. It&rsquo;s really snappy and efficient. Here&rsquo;s my sftp.json file.</p>
+
+
+
+
+
+<pre tabindex="0"><code>[
+  {
+  &#34;name&#34;: &#34;HTTP&#34;,
+  &#34;context&#34;: &#34;myfunsite/http&#34;,
+  &#34;host&#34;: &#34;myserverip&#34;,
+  &#34;protocol&#34;: &#34;sftp&#34;,
+  &#34;port&#34;: nonstandardport,
+  &#34;username&#34;: &#34;mycooluser&#34;,
+  &#34;remotePath&#34;: &#34;/var/www/myfunsite.com/&#34;,  
+  &#34;uploadOnSave&#34;: true, 
+  &#34;watcher&#34;: {
+    &#34;files&#34;: &#34;**/*&#34;,  
+    &#34;autoUpload&#34;: true,
+    &#34;autoDelete&#34;: true  
+  },
+  &#34;ignore&#34;: [&#34;.git&#34;, &#34;.vscode&#34;], 
+  &#34;privateKeyPath&#34;: &#34;/home/mycoolfiles/.ssh/httpprivatekey&#34;
+},
+  {
+  &#34;name&#34;: &#34;Gemini&#34;,
+  &#34;context&#34;: &#34;myfunsite/gemini&#34;,
+  &#34;host&#34;: &#34;myserverip&#34;,
+  &#34;protocol&#34;: &#34;sftp&#34;,
+  &#34;port&#34;: nonstandardport,
+  &#34;username&#34;: &#34;mygeminiuser&#34;,
+  &#34;remotePath&#34;: &#34;/home/mygeminiuser/gemini/content/&#34;,  
+  &#34;uploadOnSave&#34;: true,
+  &#34;watcher&#34;: {
+    &#34;files&#34;: &#34;**/*&#34;,
+    &#34;autoUpload&#34;: true,
+    &#34;autoDelete&#34;: true 
+  },
+  &#34;ignore&#34;: [&#34;.git&#34;, &#34;.vscode&#34;],
+  &#34;privateKeyPath&#34;: &#34;/home/mycoolfiles/.ssh/geminiprivatekey&#34;
+}
+]</code></pre><p>What makes this really cool to me, is that I can configure sftp to seamlessly sync for two different directories. I have two separate directories for the HTTP side of my &ldquo;fun&rdquo; website, and the Gemini protocol side.</p>
+<p>I also installed an extension called Live Server that boots up my web browser to share a live local server version of my pages, so I can edit on the fly&hellip; although sftp is fast enough that I can probably keep my site in another window.</p>
+<h2 id="what-do-i-want-to-do-next">What do I want to do next?</h2>
+<p>I want to save a basic markdown snippet in VSCode, so every time I go to write a new blog post, I don&rsquo;t have to copy and paste from my old ones.
+Additionally&hellip; I don&rsquo;t really want to work with AWS anymore for my static site, so I might change hosts relatively soon. Github Pages catches my eye, but I haven&rsquo;t decided where to move my site to as of this moment.</p>
+
+</content>
+<p>
+  
+</p>
+
+
+
+
+  </main>
+  <footer><small>
+<br>
+  made with ♥ - 2025  
+</small></footer>
+
+    
+</body>
+
+</html>
