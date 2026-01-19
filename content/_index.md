@@ -4,5 +4,5 @@ menu: "main"
 weight: 1
 ---
 
-![owl](owl.jpg "owl")
+![owl](/images/owl.jpg "owl")
 Welcome to my website.
