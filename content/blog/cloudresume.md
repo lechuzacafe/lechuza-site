@@ -5,7 +5,19 @@ author = "Amanda Parada"
 tags = [""]
 +++
 
-## spoiler alert: I did not finish it... (yet)
+
+
+## And I finished it, as of 1/19/2026!
+
+So, when I first took a jab at this challenge back in 2025, I kind of gave up around Chunk 4, which is where you were supposed to apply some sort of automation to your website updates. I was a bit daunted by GitHub at the time, but while I was working on an unrelated project, I decided to take some time to learn that and the Git workflow, and it makes updating my website pretty easy. I settled for a GitHub Actions workflow to have Hugo automatically build my site, and a VSCode extension called GitDoc that'll automatically push my changes once I save the document. So, I guess you can say I unintentially implemented Chunk 4 in my own little way.
+
+Unfortunately, my AWS free tier was running out, so I had to move everything from the S3 bucket I had, to GitHub Pages. That also means I can't implement the visitor counter I had anymore... so that's gone for the time being.
+
+I also took the Solutions Architect Associate exam yesterday, and passed it with a score of 792! That test was *brutal*, and I was struggling to answer a lot of the questions on it. I'm thinking about getting a third certification in the future... but I'll need to take a break for studying for these exams. They take a lot of energy out of me!
+
+I'm still leaving what I wrote down below just for reference.
+
+## Original attempt of the challenge back in August 2025
 
 There's a challenge going around called the Cloud Resume Challenge that you can find [here](https://cloudresumechallenge.dev/), so I took a crack at it.
 
@@ -14,6 +26,7 @@ There's a challenge going around called the Cloud Resume Challenge that you can 
 It took me a month to practice for my AWS CCP exam, mostly using the time I had during my internship. I also was able to work hands-on a bit with AWS, which helped. I passed with an 837 so I must've known *something*... lol. I mostly struggled with the billing questions and the support team ones, because they all blended together for me.
 
 I'm not going to stop at there, though, I want to get another AWS certificate before I graduate. I need to put that 50% voucher to good use!
+
 
 ## chunk 1 - HTML + CSS, setting up CloudFront
 
