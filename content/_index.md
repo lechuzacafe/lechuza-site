@@ -1,9 +1,8 @@
 ---
-title: "~/home"
+title: "~/"
 menu: "main"
 weight: 1
 ---
 
-A small website where I will add my things, little by little. Stay tuned!
-
-visitor count: currently down, something else might be here instead
+![owl](owl.jpg "owl")
+Welcome to my website.
