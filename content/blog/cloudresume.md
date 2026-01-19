@@ -17,6 +17,8 @@ I also took the Solutions Architect Associate exam yesterday, and passed it with
 
 I'm still leaving what I wrote down below just for reference.
 
+---
+
 ## Original attempt of the challenge back in August 2025
 
 There's a challenge going around called the Cloud Resume Challenge that you can find [here](https://cloudresumechallenge.dev/), so I took a crack at it.
